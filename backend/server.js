@@ -2,11 +2,17 @@ const express = require("express");
 const connectDB = require("./config/db");
 const authRoutes = require("./routes/authRoutes");
 const submissionRoutes = require("./routes/submissionRoutes");
+const cors = require("cors");
 require("dotenv").config();
 
-const app = express();
-app.use(express.json());
 
+
+
+const app = express();
+
+// Enable CORS
+app.use(cors());
+app.use(express.json());
 // Database connection
 connectDB();
 
