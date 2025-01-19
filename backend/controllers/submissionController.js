@@ -4,12 +4,14 @@ const Submission = require("../models/Submission");
  * Create a new submission
  */
 exports.createSubmission = async (req, res) => {
-  const { name, country, company, questions } = req.body;
+  const { title, location, role, company,  description,  questions } = req.body;
   try {
     const submission = new Submission({
-      name,
-      country,
+      title,
+      location,
+      role,
       company,
+      description,
       questions,
       userId: req.user.userId, // Retrieved from decoded JWT token
     });
