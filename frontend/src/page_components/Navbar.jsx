@@ -57,11 +57,18 @@ const Navbar = () => {
                 Anish
               </DropdownMenuLabel>
               <DropdownMenuSeparator className="h-px bg-gray-200 my-1" />
+              <DropdownMenuItem
+                className="flex items-center px-3 py-2 rounded-md text-gray-600 hover:bg-purple-100 hover:text-purple-700 cursor-pointer"
+                onClick={() => navigate("/dashboard")} // Use navigate to route to /dashboard
+              >
+                Dash Board
+              </DropdownMenuItem>
               <DropdownMenuItem className="flex items-center px-3 py-2 rounded-md text-gray-600 hover:bg-purple-100 hover:text-purple-700 cursor-pointer">
                 <a href="#" className="flex-1">
                   Share Your Experience
                 </a>
               </DropdownMenuItem>
+              
               <DropdownMenuItem className="flex items-center px-3 py-2 rounded-md text-gray-600 hover:bg-purple-100 hover:text-purple-700 cursor-pointer">
                 <a href="#" className="flex-1">
                   Profile
