@@ -11,7 +11,7 @@ const ExperienceCard = ({ experience }) => {
 
   return (
     <div className="bg-white p-4 rounded-lg shadow-md">
-      <h2 className="text-xl font-bold mb-2">{experience.title}</h2>
+      <h2 className="text-xl font-bold mb-2">{experience.role} interview at {experience.company}</h2>
       <p className="text-gray-600 mb-1">
         <strong>Company:</strong> {experience.company}
       </p>

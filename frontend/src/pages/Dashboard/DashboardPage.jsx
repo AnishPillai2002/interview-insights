@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Oval } from "react-loader-spinner"; // Importing loader
-import ExperienceCard from "../page_components/ExperienceCard";
-import noDataImage from "../assets/no-data-found.png";
+import ExperienceCard from "./component/ExperienceCard";
+import noDataImage from "../../assets/no-data-found.png";
 
 const Dashboard = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -32,17 +32,17 @@ const Dashboard = () => {
     fetchData();
   }, []);
 
-
-  //filtering data
+  // Filtering data
   const filteredData = data.filter((experience) => {
-  return (
-    (searchQuery === "" ||
-      (experience.title && experience.title.toLowerCase().includes(searchQuery.toLowerCase()))) &&
-    (selectedCompany === "" || experience.company === selectedCompany) &&
-    (selectedRole === "" || experience.role === selectedRole)
-  );
-});
-
+    return (
+      (searchQuery === "" ||
+        (experience.role + " interview at " + experience.company)
+          .toLowerCase()
+          .includes(searchQuery.toLowerCase())) &&
+      (selectedCompany === "" || experience.company === selectedCompany) &&
+      (selectedRole === "" || experience.role === selectedRole)
+    );
+  });
 
   const companies = [...new Set(data.map((item) => item.company))];
   const roles = [...new Set(data.map((item) => item.role))];
@@ -55,7 +55,7 @@ const Dashboard = () => {
           <div className="flex flex-wrap gap-4">
             <input
               type="text"
-              placeholder="Search by title..."
+              placeholder="Search by role or company..."
               className="w-full md:w-1/2 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}

@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { useNavigate } from "react-router-dom"; // For navigation
+import registerUser from "@/api/register";
+import PopupMessage from "./PopupMessage"; // Import PopupMessage component
 import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { useNavigate } from "react-router-dom"; // For navigation
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -17,6 +17,9 @@ const Signup = () => {
     password: "",
   });
   const [errorMessage, setErrorMessage] = useState("");
+  const [showPopup, setShowPopup] = useState(false);
+  const [popupMessage, setPopupMessage] = useState("");
+  const [popupType, setPopupType] = useState(""); // 'success' or 'error'
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -30,22 +33,33 @@ const Signup = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { name, email, password } = formData;
-    console.log("Sending data:", formData);
-    try {
-      const response = await axios.post("http://localhost:5000/api/auth/register", {
-        name,
-        email,
-        password,
-      });
-      console.log("response:",response); //not printing
-      if (response.status === 200) {
-        alert("Registration successful! Redirecting to dashboard...");
-        navigate("/dashboard"); // Replace with your dashboard route
-      }
-    } catch (error) {
-      console.error("Error registering user:", error.response?.data?.message || error.message);
-      setErrorMessage(error.response?.data?.message || "An error occurred during registration.");
-    }
+
+    // Call the registerUser function
+    await registerUser(
+      name,
+      email,
+      password,
+      navigate,
+      setErrorMessage,
+      setShowPopup,
+      setPopupMessage,
+      setPopupType
+    );
+
+    // Clear form data
+    setFormData({
+      name: "",
+      email: "",
+      password: "",
+    });
+
+    setTimeout(() => {
+      navigate("/auth"); // Replace with your dashboard route
+      window.location.reload(); // Reload the /auth page
+    }, 1800); // Wait for the popup to show before navigating
+
+    
+
   };
 
   return (
@@ -119,6 +133,15 @@ const Signup = () => {
           </button>
         </form>
       </CardContent>
+
+      {/* Show Popup if showPopup is true */}
+      {showPopup && (
+        <PopupMessage
+          message={popupMessage}
+          type={popupType}
+          onClose={() => setShowPopup(false)} // Close popup on close button click
+        />
+      )}
     </Card>
   );
 };

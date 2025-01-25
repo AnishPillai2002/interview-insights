@@ -2,11 +2,11 @@ import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import AppLayout from "./layout/app-layout";
 import AuthPage from "./pages/AuthPage";
-import DashboardPage from "./pages/DashboardPage";
+import DashboardPage from "./pages/Dashboard/DashboardPage";
 import HomePage from "./pages/HomePage";
-import ShareYourInterviewExperience from "./pages/ShareExperiencePage";
+
 import InterviewExperiencePage from "./pages/InterviewDetailsPage";
-import UserExperiencePage from "./pages/UserExperiencePage";
+import UserExperiencePage from "./pages/UserExperiencePage/UserExperiencePage";
 
 const router = createBrowserRouter([
   {
@@ -23,10 +23,6 @@ const router = createBrowserRouter([
       {
         path: "/auth",
         element: <AuthPage />,
-      },
-      {
-        path: "/share",
-        element: <ShareYourInterviewExperience/>
       },
       {
         path:"/interview-experience/:id",
